@@ -11,7 +11,7 @@ public class HteaoImpl implements HteaoService {
         this.hteaoRespository = hteaoRespository;
     }
 
-    private HteaoRespository hteaoRespository;
+    private final HteaoRespository hteaoRespository;
 
 
     @Override
@@ -24,11 +24,5 @@ public class HteaoImpl implements HteaoService {
     public void save(Hteao hteao) {
         // Implementation of save method
         hteaoRespository.save(hteao);
-    }
-
-    @Override
-    public Double orderQunatity(Integer quantity, Double price) {
-        // Implementation of orderQunatity method
-        return quantity * price;
     }
 }

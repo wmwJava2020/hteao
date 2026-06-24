@@ -6,6 +6,7 @@ import com.xpo.HTEAO.payment.HteaoPayment;
 public interface HteaoService {
     void order(Hteao hteao);
     void save(Hteao hteao);
-    Double orderQunatity(Integer quantity, Double price);
+    //Double orderQuantity(Integer quantity, Double price);
+
 
 }
