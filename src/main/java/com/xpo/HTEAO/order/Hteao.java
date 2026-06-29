@@ -5,15 +5,17 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
 
+import java.math.BigDecimal;
+
 @Entity
 @Table(name = "tbl_hteao")
 @Data
 public class Hteao {
     @Id
-    private String hteaoId;
+    private Long hteaoId;
     private String hteaoName;
-    private Double price;
-    private Integer orderQunatity;
+    private BigDecimal price;
+    private Integer quantity;
     private String hteaoDesc;
 
 }
