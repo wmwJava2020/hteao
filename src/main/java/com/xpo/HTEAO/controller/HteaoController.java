@@ -23,6 +23,7 @@ public class HteaoController {
     @PostMapping("/order")
     public ResponseEntity<?> orderTea(@RequestBody Hteao hteao) {
         hteaoService.order(hteao);
+        System.out.println("Testing to print.....hteao");
         log.info("Order placed for Tea: " + hteao.getHteaoName() + ", Quantity: " + hteao.getQuantity() + ", Total Price: " + hteao.getPrice());
         return ResponseEntity.ok("Order placed successfully");
     }
