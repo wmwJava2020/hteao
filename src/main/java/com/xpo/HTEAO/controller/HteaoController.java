@@ -2,6 +2,8 @@ package com.xpo.HTEAO.controller;
 
 import com.xpo.HTEAO.order.Hteao;
 import com.xpo.HTEAO.service.HteaoImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,6 +21,7 @@ public class HteaoController {
     public ResponseEntity<?> orderTea(@RequestBody Hteao hteao) {
         // Implementation of orderTea method
         hteaoImpl.order(hteao);
+        log.info("Order placed successfully for tea: {}", hteao);
         return ResponseEntity.ok("Order placed successfully");
     }
 
@@ -30,6 +33,7 @@ public class HteaoController {
             hteaoImpl.save(hteao);
         }
         hteaoImpl.save(hteao);
+        log.info("Saved tea successfully for tea: {}", hteao);
         return ResponseEntity.ok("Tea saved successfully");
     }
 }
