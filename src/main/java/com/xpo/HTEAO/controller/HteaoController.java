@@ -2,6 +2,7 @@ package com.xpo.HTEAO.controller;
 
 import com.xpo.HTEAO.order.Hteao;
 import com.xpo.HTEAO.service.HteaoImpl;
+import com.xpo.HTEAO.service.HteaoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.xpo.HTEAO.service.HteaoService;
@@ -42,6 +43,8 @@ public class HteaoController {
             hteao.setHteaoId(hteao.getHteaoId() + i);
             //hteao.setPrice(hteao.getPrice() + i * 2.99);
             hteaoImpl.save(hteao);
+            log.info("Saved tea: {}", hteao);
+            log.info("Saved tea quantity: {}", hteao.getQuantity());
             hteao.setHteaoId(hteao.getHteaoId() * 2L);
             hteao.setQuantity(hteao.getQuantity() + 1);
             hteao.setPrice(hteao.getPrice().multiply(BigDecimal.valueOf(hteao.getQuantity().doubleValue())));
