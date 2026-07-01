@@ -5,9 +5,12 @@ import com.xpo.HTEAO.repository.HteaoRespository;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.logging.Logger;
 
 @Service
 public class HteaoImpl implements HteaoService {
+
+    Logger log = Logger.getLogger(HteaoImpl.class.getName());
 
     private final HteaoRespository hteaoRespository;
 
@@ -33,10 +36,12 @@ public class HteaoImpl implements HteaoService {
             return BigDecimal.ZERO;
         }
         return price.multiply(BigDecimal.valueOf(quantity));
+
     }
 
     @Override
     public Hteao getHteaoById(Long id) {
+        log.info("Fetching Hteao by ID: {}" + id);
         return hteaoRespository.findById(String.valueOf(id)).orElse(null);
     }
 }
