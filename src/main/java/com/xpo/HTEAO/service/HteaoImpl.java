@@ -32,7 +32,7 @@ public class HteaoImpl implements HteaoService {
 
     @Override
     public BigDecimal getTotalPrice(Integer quantity, BigDecimal price) {
-        if (quantity == 0 || !price.equals(BigDecimal.ZERO)) {
+        if (quantity == 0 || price == null) {
             return BigDecimal.ZERO;
         }
         return price.multiply(BigDecimal.valueOf(quantity));

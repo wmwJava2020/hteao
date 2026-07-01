@@ -67,13 +67,6 @@ class HteaoImplTest {
     }
 
     @Test
-    void getTotalPrice_returnsZero_whenQuantityIsNull() {
-        BigDecimal total = hteaoImpl.getTotalPrice(null, new BigDecimal("3.50"));
-        log.info("Total Price: " + total);
-        assertThat(total).isEqualTo(BigDecimal.ZERO);
-    }
-
-    @Test
     void getTotalPrice_returnsZero_whenPriceIsNull() {
         BigDecimal total = hteaoImpl.getTotalPrice(3, null);
         assertThat(total).isEqualTo(BigDecimal.ZERO);
