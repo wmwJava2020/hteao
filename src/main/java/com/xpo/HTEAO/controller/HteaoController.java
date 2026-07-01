@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/tea")
 public class HteaoController {
 
+    Logger log = LoggerFactory.getLogger(HteaoController.class);
     private HteaoImpl hteaoImpl;
 
     public HteaoController(HteaoImpl hteaoImpl) {
@@ -33,7 +34,6 @@ public class HteaoController {
             hteaoImpl.save(hteao);
         }
         hteaoImpl.save(hteao);
-        log.info("Saved tea successfully for tea: {}", hteao);
         return ResponseEntity.ok("Tea saved successfully");
     }
 }
