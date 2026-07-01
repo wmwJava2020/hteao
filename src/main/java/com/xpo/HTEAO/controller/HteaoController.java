@@ -34,7 +34,7 @@ public class HteaoController {
         log.info("Received save request for tea: {}", hteao);
         for(int i = 0; i < 5; i++) {
             hteao.setHteaoId(hteao.getHteaoId() + i);
-            hteao.setPrice(hteao.getPrice() + i * 2.99);
+            //hteao.setPrice(hteao.getPrice() + i * 2.99);
             hteaoImpl.save(hteao);
             log.info("Saved tea with ID: {} and Price: {}", hteao.getHteaoId(), hteao.getPrice());
         }
