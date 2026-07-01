@@ -117,8 +117,6 @@ class HteaoControllerTest {
         mockMvc.perform(get("/api/v1/tea/quantity")
                 .param("quantity", "0")
                 .param("price", "10.00"));
-                //.andExpect(status().isOk())
-               // .andExpect(content().string("0"));
         log.info("getTotalPrice_withZeroQuantity test passed...........");
     }
 
