@@ -6,6 +6,6 @@ ADD target/HTEAO-0.0.1-SNAPSHOT.jar /app/app.jar
 
 #WORKDIR /app
 
-ENTRYPOINT ["java", "-jar", "/HTEAO-0.0.1-SNAPSHOT.jar']
+ENTRYPOINT ["java", "-jar", "/app/hteao-0.0.1-snapshot.jar']
 
 
