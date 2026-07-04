@@ -27,6 +27,7 @@ public class HteaoImpl implements HteaoService {
     @Override
     public void save(Hteao hteao) {
         // Implementation of save method
+        log.info("Saving Hteao: " + hteao);
         hteaoRespository.save(hteao);
     }
 
@@ -35,13 +36,14 @@ public class HteaoImpl implements HteaoService {
         if (quantity == 0 || price == null) {
             return BigDecimal.ZERO;
         }
+        log.info("Getting Total Price: " + price);
         return price.multiply(BigDecimal.valueOf(quantity));
 
     }
 
     @Override
     public Hteao getHteaoById(Long id) {
-        log.info("Fetching Hteao by ID: {}" + id);
+        log.info("Fetching Hteao by ID: {}"+ id);
         return hteaoRespository.findById(String.valueOf(id)).orElse(null);
     }
 }
