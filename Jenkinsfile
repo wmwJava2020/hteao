@@ -64,36 +64,36 @@ pipeline {
             }
         }
 
-        stage('Deploy with Docker Compose') {
-            steps {
-                // Force remove existing containers
-                bat 'docker rm -f hteao-zookeeper     || echo not found'
-                bat 'docker rm -f hteao-kafka         || echo not found'
-                bat 'docker rm -f hteao-mysql         || echo not found'
-                bat 'docker rm -f hteao-app           || echo not found'
-                bat 'docker rm -f hteao-kafka-producer|| echo not found'
-                bat 'docker rm -f hteao-kafka-consumer|| echo not found'
+       stage('Deploy with Docker Compose') {
+    steps {
+        // Force remove existing containers
+        bat 'docker rm -f hteao-zookeeper      2>nul & exit 0'
+        bat 'docker rm -f hteao-kafka          2>nul & exit 0'
+        bat 'docker rm -f hteao-mysql          2>nul & exit 0'
+        bat 'docker rm -f hteao-app            2>nul & exit 0'
+        bat 'docker rm -f hteao-kafka-producer 2>nul & exit 0'
+        bat 'docker rm -f hteao-kafka-consumer 2>nul & exit 0'
 
-                // Clean up networks
-                bat 'docker network rm hteao-pipeline_hteao-network || echo no network'
-                bat 'docker network rm HTEAO_hteao-network          || echo no network'
+        // Clean networks — Windows safe syntax
+        bat 'docker network rm hteao-pipeline_hteao-network 2>nul & exit 0'
+        bat 'docker network rm HTEAO_hteao-network          2>nul & exit 0'
 
-                // Start Zookeeper first — needs time to be ready
-                bat 'docker-compose up -d zookeeper'
-                bat 'ping -n 16 127.0.0.1 > nul'
+        // Start Zookeeper first
+        bat 'docker-compose up -d zookeeper'
+        bat 'ping -n 16 127.0.0.1 > nul'
 
-                // Start Kafka — needs Zookeeper ready
-                bat 'docker-compose up -d kafka'
-                bat 'ping -n 26 127.0.0.1 > nul'
+        // Start Kafka
+        bat 'docker-compose up -d kafka'
+        bat 'ping -n 26 127.0.0.1 > nul'
 
-                // Start all remaining services
-                bat 'docker-compose up -d'
-                bat 'ping -n 11 127.0.0.1 > nul'
+        // Start everything
+        bat 'docker-compose up -d'
+        bat 'ping -n 11 127.0.0.1 > nul'
 
-                // Show running containers
-                bat 'docker ps'
-            }
-        }
+        // Verify
+        bat 'docker ps'
+    }
+}
     }
 
     post {
