@@ -1,10 +1,12 @@
-FROM eclipse-temurin:17-jdk-alpine
+FROM eclipse-temurin:17-jre-alpine
+
+WORKDIR /app
+
+COPY target/*.jar app.jar
 
 EXPOSE 1972
 
-ADD target/HTEAO-0.0.1-SNAPSHOT.jar hteao-0.0.1-SNAPSHOT.jar
+HEALTHCHECK --interval=30s --timeout=3s \
+  CMD wget -qO- http://localhost:1972/actuator/health || exit 1
 
-ENTRYPOINT ["java", "-jar", "/hteao-0.0.1-snapshot.jar"]
-
-
-
+ENTRYPOINT ["java", "-jar", "app.jar"]
