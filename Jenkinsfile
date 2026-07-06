@@ -77,13 +77,35 @@ pipeline {
         }
 
         stage('Deploy with Docker Compose') {
-            steps {
-                bat 'docker-compose down || echo nothing to stop'
-                bat 'docker-compose up -d'
-                bat 'ping -n 20 127.0.0.1 > nul'
-                bat 'docker ps'
-            }
-        }
+    steps {
+        // Force remove any existing containers first
+        bat 'docker rm -f hteao-zookeeper || echo not found'
+        bat 'docker rm -f hteao-kafka     || echo not found'
+        bat 'docker rm -f hteao-mysql     || echo not found'
+        bat 'docker rm -f hteao-app       || echo not found'
+        bat 'docker rm -f hteao-kafka-producer || echo not found'
+        bat 'docker rm -f hteao-kafka-consumer || echo not found'
+
+        // Clean up networks
+        bat 'docker network rm hteao-pipeline_hteao-network || echo no network'
+        bat 'docker network rm HTEAO_hteao-network || echo no network'
+
+        // Start Zookeeper first
+        bat 'docker-compose up -d zookeeper'
+        bat 'ping -n 16 127.0.0.1 > nul'
+
+        // Start Kafka
+        bat 'docker-compose up -d kafka'
+        bat 'ping -n 26 127.0.0.1 > nul'
+
+        // Start everything else
+        bat 'docker-compose up -d'
+        bat 'ping -n 11 127.0.0.1 > nul'
+
+        // Verify
+        bat 'docker ps'
+    }
+}
     }
 
     post {
